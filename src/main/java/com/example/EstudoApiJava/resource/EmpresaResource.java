@@ -2,7 +2,9 @@ package com.example.EstudoApiJava.resource;
 
 import com.example.EstudoApiJava.dto.EmpresaDTO;
 import com.example.EstudoApiJava.entities.Empresa;
+import com.example.EstudoApiJava.resource.request.TransacaoRequest;
 import com.example.EstudoApiJava.service.EmpresaService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -61,5 +63,11 @@ public class EmpresaResource {
     public ResponseEntity<BigDecimal> consultarSaldo(@PathVariable final Long numSequencial){
         EmpresaDTO empresaDto = new EmpresaDTO(empresaService.consultarSaldo(numSequencial));
         return ResponseEntity.ok().body(empresaDto.getSaldoAtual());
+    }
+
+    @PostMapping("/transferir")
+    public ResponseEntity<?> transferir(@Valid final TransacaoRequest request){
+        empresaService.transferir(request);
+        return ResponseEntity.ok("Transação realizada com sucesso");
     }
 }

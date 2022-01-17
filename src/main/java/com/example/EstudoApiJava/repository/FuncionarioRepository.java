@@ -12,7 +12,7 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> 
     boolean existsByCpf(String cpf);
 
     @Query("SELECT obj FROM Funcionario obj WHERE obj.cpf =:cpf")
-    Funcionario findBycpf(@Param("cpf") String cpf);
+    Funcionario findByCpf(@Param("cpf") String cpf);
 
     Optional<Funcionario> getByCpf(String cpf);
 }
