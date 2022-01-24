@@ -37,7 +37,7 @@ public class FuncionarioResource {
     }
 
     @PostMapping
-    public ResponseEntity<FuncionarioDTO> inserir(@Valid final FuncionarioDTO funcionarioDto){
+    public ResponseEntity<FuncionarioDTO> inserir(@Valid @RequestBody final FuncionarioDTO funcionarioDto){
         Funcionario funcionario = funcionarioService.inserir(funcionarioDto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{numSequencial}")
                 .buildAndExpand(funcionario.getNumSequencial()).toUri();

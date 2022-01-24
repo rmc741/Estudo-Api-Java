@@ -10,16 +10,16 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static javax.persistence.CascadeType.*;
-
 @Entity
 @Table(name = "empresa")
 @NoArgsConstructor
 @Getter @Setter
-public class Empresa {
+public class Empresa implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "num_sequencial")
     private Long numSequencial;
     @Column(name = "nome")
@@ -32,7 +32,7 @@ public class Empresa {
     private BigDecimal saldoAtual;
 
     @JsonIgnore
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "empresa")
     private List<Funcionario> funcionariosList;
 
     public Empresa(String nome,  String cnpj , String endereco , BigDecimal saldoAtual){

@@ -66,7 +66,7 @@ public class EmpresaResource {
     }
 
     @PostMapping("/transferir")
-    public ResponseEntity<?> transferir(@Valid final TransacaoRequest request){
+    public ResponseEntity<?> transferir(@Valid @RequestBody final TransacaoRequest request){
         empresaService.transferir(request);
         return ResponseEntity.ok("Transação realizada com sucesso");
     }

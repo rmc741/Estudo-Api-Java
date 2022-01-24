@@ -25,20 +25,22 @@ public class FuncionarioService {
     @Autowired
     private EmpresaRepository empresaRepository;
 
-    public Funcionario buscarFuncionario(final Long numSequencial){
+    public Funcionario buscarFuncionario(final Long numSequencial) {
         Optional<Funcionario> funcionario = funcionarioRepository.findById(numSequencial);
-        return funcionario.orElseThrow(() -> new ObjetoNaoEncontradoException("Funcionario não encontrado."));
+        return funcionario.orElseThrow(() -> new ObjetoNaoEncontradoException("Objeto não encontrado. "));
     }
 
-    public List<Funcionario> buscarTodos(){ return funcionarioRepository.findAll();}
+    public List<Funcionario> buscarTodos() {
+        return funcionarioRepository.findAll();
+    }
 
-    public Funcionario inserir(final FuncionarioDTO funcionarioDto){
-        if(findByCpf(funcionarioDto) != null){
-            throw new ViolacaoIntegridadeDosDadosException("Funcionario ja cadastrado");
+    public Funcionario inserir(final FuncionarioDTO funcionarioDto) {
+        if (findByCpf(funcionarioDto) != null) {
+            throw new ViolacaoIntegridadeDosDadosException("Funcionário já cadastrado. ");
         }
         Optional<Empresa> empresa = empresaRepository.findById(funcionarioDto.getEmpresaNumSequencial());
-        return funcionarioRepository.save(new Funcionario(funcionarioDto.getNome() , funcionarioDto.getCpf() ,
-                funcionarioDto.getEndereco() , funcionarioDto.getSaldoAtual(), empresa.get()));
+        return funcionarioRepository.save(new Funcionario(funcionarioDto.getNome(), funcionarioDto.getCpf(),
+                funcionarioDto.getEndereco(), funcionarioDto.getSaldoAtual(), empresa.get()));
     }
 
     public Funcionario atualizarDados(final Long numSequencial , @Valid FuncionarioDTO funcionarioDto){

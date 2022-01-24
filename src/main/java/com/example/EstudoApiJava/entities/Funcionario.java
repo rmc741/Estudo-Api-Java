@@ -13,10 +13,12 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Funcionario {
+public class Funcionario implements Serializable{
+
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "num_sequencial")
     private Long numSequencial;
     @Column(name = "nome")
@@ -27,7 +29,6 @@ public class Funcionario {
     private String endereco;
     @Column(name = "saldo_Atual")
     private BigDecimal saldoAtual;
-
     @ManyToOne
     @JoinColumn(name = "empresa" , referencedColumnName = "num_sequencial")
     private Empresa empresa;
